@@ -1,8 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photogram</title>
 
-<%@ include file="../layout/header.jsp"%>
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <!-- Style -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/story.css">
+    <link rel="stylesheet" href="/css/popular.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/upload.css">
+    <link rel="stylesheet" href="/css/update.css">
+    <link rel="shortcut icon" href="/images/insta.svg">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <a href="/image/story" class="logo">
+            <img src="/images/logo.jpg" alt="">
+        </a>
+        <nav class="navi">
+            <ul class="navi-list">
+                <li class="navi-item"><a href="/image/story">
+                    <i class="fas fa-home"></i>
+                </a></li>
+                <li class="navi-item"><a href="/image/popular">
+                    <i class="far fa-compass"></i>
+                </a></li>
+                <li class="navi-item"><a href="/user/profile">
+                    <i class="far fa-user"></i>
+                </a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 <!--프로필 섹션-->
 <section class="profile">
     <!--유저정보 컨테이너-->
@@ -18,7 +58,7 @@
                 </form>
 
                 <img class="profile-image" src="#"
-                     onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
+                     onerror="this.src='/images/sky.jpg'" id="userProfileImage" />
             </div>
         </div>
         <!--유저이미지end-->
@@ -26,7 +66,7 @@
         <!--유저정보 및 사진등록 구독하기-->
         <div class="profile-right">
             <div class="name-group">
-                <h2>TherePrograming</h2>
+                <h2>yerong</h2>
 
                 <button class="cta" onclick="location.href='/image/upload'">사진등록</button>
                 <button class="cta" onclick="toggleSubscribe(this)">구독하기</button>
@@ -44,8 +84,8 @@
                 </ul>
             </div>
             <div class="state">
-                <h4>자기 소개입니다.</h4>
-                <h4>https://github.com/codingspecialist</h4>
+                <h4>안녕하세요!</h4>
+                <h4>https://nyeroni.tistory.com/</h4>
             </div>
         </div>
         <!--유저정보 및 사진등록 구독하기-->
@@ -132,7 +172,7 @@
 
             <div class="subscribe__item" id="subscribeModalItem-1">
                 <div class="subscribe__img">
-                    <img src="#" onerror="this.src='/images/person.jpeg'"/>
+                    <img src="#" onerror="this.src='/images/sky.jpg'"/>
                 </div>
                 <div class="subscribe__text">
                     <h2>love</h2>
@@ -145,7 +185,7 @@
 
             <div class="subscribe__item" id="subscribeModalItem-2">
                 <div class="subscribe__img">
-                    <img src="#" onerror="this.src='/images/person.jpeg'"/>
+                    <img src="#" onerror="this.src='/images/sky.jpg'"/>
                 </div>
                 <div class="subscribe__text">
                     <h2>ssar</h2>
@@ -159,7 +199,25 @@
 
 </div>
 
-
 <script src="/js/profile.js"></script>
-
-<%@ include file="../layout/footer.jsp"%>
+</body>
+<footer>
+    <div class="container">
+        <ul>
+            <li><a href="#a">소개</a></li>
+            <li><a href="#a">블로그</a></li>
+            <li><a href="#a">채용 정보</a></li>
+            <li><a href="#a">도움말</a></li>
+            <li><a href="#a">API</a></li>
+            <li><a href="#a">개인정보처리방침</a></li>
+            <li><a href="#a">약관</a></li>
+            <li><a href="#a">인기 계정</a></li>
+            <li><a href="#a">해시태그</a></li>
+            <li><a href="#a">위치</a></li>
+        </ul>
+        <div class="copy">
+            <p>© 2020 Photogram from There Programing</p>
+        </div>
+    </div>
+</footer>
+</html>
