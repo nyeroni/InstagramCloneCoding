@@ -21,6 +21,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void join(SignupDto signupDto){
+
+
         String rawPassword = signupDto.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
         signupDto.setPassword(encPassword);
