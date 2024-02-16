@@ -1,7 +1,6 @@
 package yerong.InstagramCloneCoding.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,7 @@ import yerong.InstagramCloneCoding.domain.user.Role;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.repository.UserRepository;
 import yerong.InstagramCloneCoding.service.AuthService;
-import yerong.InstagramCloneCoding.web.dto.SignupDto;
+import yerong.InstagramCloneCoding.web.dto.auth.SignupDto;
 
 @Service
 @RequiredArgsConstructor

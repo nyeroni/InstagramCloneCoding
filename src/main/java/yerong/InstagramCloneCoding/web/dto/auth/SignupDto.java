@@ -1,4 +1,4 @@
-package yerong.InstagramCloneCoding.web.dto;
+package yerong.InstagramCloneCoding.web.dto.auth;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;

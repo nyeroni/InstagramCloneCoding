@@ -1,7 +1,7 @@
 package yerong.InstagramCloneCoding.service;
 
 
-import yerong.InstagramCloneCoding.web.dto.SignupDto;
+import yerong.InstagramCloneCoding.web.dto.auth.SignupDto;
 
 public interface AuthService {
 

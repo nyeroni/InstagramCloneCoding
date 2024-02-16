@@ -3,15 +3,14 @@ package yerong.InstagramCloneCoding.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import yerong.InstagramCloneCoding.domain.user.User;
+import yerong.InstagramCloneCoding.handler.exception.CustomValidationException;
 import yerong.InstagramCloneCoding.service.AuthService;
-import yerong.InstagramCloneCoding.web.dto.SignupDto;
+import yerong.InstagramCloneCoding.web.dto.auth.SignupDto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +41,11 @@ public class AuthController {
                 errorMap.put(error.getField(), error.getDefaultMessage());
                 log.info(error.getDefaultMessage());
             }
+            throw new CustomValidationException("유효성 검사 실패", errorMap);
         }
-        authService.join(signupDto);
-        return "views/auth/signin";
+        else {
+            authService.join(signupDto);
+            return "views/auth/signin";
+        }
     }
 }
