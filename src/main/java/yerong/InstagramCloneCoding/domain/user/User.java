@@ -25,10 +25,17 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
-    private String bio; //자기소현
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+    private String bio; //자기소개
     private String website;
     private String phone;
     private String gender;
 
+    public void setRole(Role role){
+        this.role = role;
+    }
 
 }
