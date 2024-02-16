@@ -7,6 +7,7 @@ import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
 @Entity
 public class User extends BaseTimeEntity {
 
@@ -28,4 +29,6 @@ public class User extends BaseTimeEntity {
     private String website;
     private String phone;
     private String gender;
+
+
 }
