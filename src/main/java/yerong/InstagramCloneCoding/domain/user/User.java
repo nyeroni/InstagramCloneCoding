@@ -2,12 +2,13 @@ package yerong.InstagramCloneCoding.domain.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    private String bio; //자기소개
+    private String bio; //자기소현
     private String website;
     private String phone;
     private String gender;
