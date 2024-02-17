@@ -26,7 +26,6 @@ public class AuthController {
     public String signinForm(){
         return "views/auth/signin";
     }
-
     @GetMapping("/auth/signup")
     public String signupForm(){
         return "views/auth/signup";
