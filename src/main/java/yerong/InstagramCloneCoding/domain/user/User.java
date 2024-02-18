@@ -8,6 +8,7 @@ import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder
+@ToString
 @Entity
 public class User extends BaseTimeEntity {
 
@@ -39,5 +40,24 @@ public class User extends BaseTimeEntity {
     public void setRole(Role role){
         this.role = role;
     }
+    public void updateName(String name){
+        this.name = name;
+    }
+    public void updatePassword(String password){
+        this.password = password;
+    }
+    public void updateBio(String bio){
+        this.bio = bio;
+    }
+    public void updateWebsite(String website){
+        this.website = website;
+    }
+    public void updatePhone(String phone){
+        this.phone = phone;
+    }
+    public void updateGender(String gender){
+        this.gender = gender;
+    }
+
 
 }
