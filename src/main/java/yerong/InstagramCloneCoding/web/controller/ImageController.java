@@ -14,5 +14,8 @@ public class ImageController {
     public String popular(){
         return "views/image/popular";
     }
-
+    @GetMapping("/image/upload")
+    public String upload(){
+        return "views/image/upload";
+    }
 }
