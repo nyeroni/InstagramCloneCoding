@@ -3,8 +3,10 @@ package yerong.InstagramCloneCoding.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
+import yerong.InstagramCloneCoding.domain.image.Image;
 import yerong.InstagramCloneCoding.domain.subs.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +44,9 @@ public class User extends BaseTimeEntity {
     private String gender;
 
 
+    @OneToMany(mappedBy = "user")
+    private List<Image> images = new ArrayList<>();
+
 
     public void setRole(Role role){
         this.role = role;
@@ -65,5 +70,8 @@ public class User extends BaseTimeEntity {
         this.gender = gender;
     }
 
+    public void addImage(Image image){
+        this.images.add(image);
+    }
 
 }

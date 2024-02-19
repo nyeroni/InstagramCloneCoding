@@ -6,4 +6,5 @@ import yerong.InstagramCloneCoding.web.dto.user.UserUpdateDto;
 public interface UserService {
     User findById(Long id);
     User update(Long id, UserUpdateDto userUpdateDto);
+    User profile(Long userId);
 }

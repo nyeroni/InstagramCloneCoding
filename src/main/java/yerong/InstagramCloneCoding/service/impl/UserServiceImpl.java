@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yerong.InstagramCloneCoding.domain.user.User;
+import yerong.InstagramCloneCoding.handler.exception.CustomException;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
 import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.UserService;
@@ -39,5 +40,10 @@ public class UserServiceImpl implements UserService {
         log.info("userUpdateDto.gender" , userUpdateDto.getGender());
 
         return user;
+    }
+    @Override
+    @Transactional
+    public User profile(Long userId){
+        return   userRepository.findById(userId).orElseThrow(() ->  new CustomException("해당 프로필 페이지는 없는 페이지입니다."));
     }
 }

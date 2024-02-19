@@ -8,8 +8,10 @@ function imageChoose(obj) {
 	}
 
 	let reader = new FileReader();
+
 	reader.onload = (e) => {
-		$("#imageUploadPreview").attr("src", e.target.result);
-	}
+		if (e.target.readyState === FileReader.DONE) {
+			$("#imageUploadPreview").attr("src", e.target.result);
+		}	}
 	reader.readAsDataURL(f); // 이 코드 실행시 reader.onload 실행됨.
 }

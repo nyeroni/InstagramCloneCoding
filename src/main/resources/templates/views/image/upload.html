@@ -56,14 +56,14 @@
         </div>
         <!-- 사진 업로드 로고 end -->
         <!-- 사진 업로드 Form -->
-        <form class="upload-form" >
+        <form class="upload-form" action="/image" method="post" enctype="multipart/form-data">
             <input  type="file" name="file"  onchange="imageChoose(this)"/>
             <div class="upload-img">
                 <img src="/images/sky.jpg" alt="" id="imageUploadPreview" />
             </div>
             <!-- 사진 설명 + 업로드 버튼 -->
             <div class="upload-form-detail">
-                <input type="text" placeholder="사진 설명" name="caption">
+                <input type="text" placeholder="사진 설명" name="caption" />
                 <button class="cta blue">업로드</button>
             </div>
             <!-- 사진 설명 end -->
@@ -72,7 +72,7 @@
     </section>
     <!-- 사진 업로드 박스 end -->
 </main>
-<script src="/js/upload.js.js"></script>
+<script src="/js/upload.js"></script>
 </body>
 <footer>
     <div class="container">
