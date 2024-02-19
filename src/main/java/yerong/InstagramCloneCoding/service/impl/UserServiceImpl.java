@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
-import yerong.InstagramCloneCoding.repository.UserRepository;
+import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.UserService;
 import yerong.InstagramCloneCoding.web.dto.user.UserUpdateDto;
-
-import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor

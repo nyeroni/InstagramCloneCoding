@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yerong.InstagramCloneCoding.domain.user.Role;
 import yerong.InstagramCloneCoding.domain.user.User;
-import yerong.InstagramCloneCoding.repository.UserRepository;
+import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.AuthService;
 import yerong.InstagramCloneCoding.web.dto.auth.SignupDto;
 

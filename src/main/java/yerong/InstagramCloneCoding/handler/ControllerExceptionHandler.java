@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import yerong.InstagramCloneCoding.handler.exception.CustomApiException;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationException;
 import yerong.InstagramCloneCoding.util.Script;
@@ -33,5 +34,8 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CMRespDto<?>> validationApiException(CustomValidationApiException e){
         return new ResponseEntity<CMRespDto<?>>(new CMRespDto(-1, e.getMessage(), e.getErrorMap()), HttpStatus.BAD_REQUEST);
     }
-
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<CMRespDto<?>> apiException(CustomApiException e){
+        return new ResponseEntity<CMRespDto<?>>(new CMRespDto(-1, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -29,7 +29,9 @@ public class SecurityConfig{
                                         AntPathRequestMatcher.antMatcher("/user/**"),
                                         AntPathRequestMatcher.antMatcher("/image/**"),
                                         AntPathRequestMatcher.antMatcher("/subscribe/**"),
-                                        AntPathRequestMatcher.antMatcher("/comment/**")
+                                        AntPathRequestMatcher.antMatcher("/comment/**"),
+                                        AntPathRequestMatcher.antMatcher("/api/**")
+
                                 ).authenticated()
                                 .anyRequest().permitAll()
                 )

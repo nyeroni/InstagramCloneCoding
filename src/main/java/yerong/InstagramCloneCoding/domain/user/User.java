@@ -3,18 +3,22 @@ package yerong.InstagramCloneCoding.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
+import yerong.InstagramCloneCoding.domain.subs.Subscribe;
+
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder
-@ToString
+@ToString(of = {"id", "username", "password", "email", "name", "role", "bio", "website", "phone", "gender"})
 @Entity
 public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false, unique = true, length = 20)
@@ -36,6 +40,8 @@ public class User extends BaseTimeEntity {
     private String website;
     private String phone;
     private String gender;
+
+
 
     public void setRole(Role role){
         this.role = role;
