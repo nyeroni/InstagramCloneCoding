@@ -1,5 +1,6 @@
 package yerong.InstagramCloneCoding.web.dto.user;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import yerong.InstagramCloneCoding.domain.user.User;
@@ -8,7 +9,9 @@ import yerong.InstagramCloneCoding.domain.user.User;
 @Setter
 public class UserUpdateDto {
 
+    @NotBlank
     private String name; //필수로 받을 것
+    @NotBlank
     private String password; //필수로 받을 것
     private String website;
     private String bio;
