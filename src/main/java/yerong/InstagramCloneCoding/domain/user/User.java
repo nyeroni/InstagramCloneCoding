@@ -49,6 +49,7 @@ public class User extends BaseTimeEntity {
     @JsonIgnoreProperties({"user"})
     private List<Image> images = new ArrayList<>();
 
+    private String profileImageUrl;
 
     public void setRole(Role role){
         this.role = role;

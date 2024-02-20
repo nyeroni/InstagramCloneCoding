@@ -29,6 +29,8 @@ public class UserController {
         UserProfileDto userDto = userService.profile(pageUserId, principalDetails.getUser().getId());
 
         model.addAttribute("userDto", userDto);
+        model.addAttribute("principal", principalDetails.getUser());
+
         return "views/user/profile";
     }
     @GetMapping("/user/{id}/update")

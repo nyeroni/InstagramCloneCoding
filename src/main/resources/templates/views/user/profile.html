@@ -36,7 +36,8 @@
                 <li class="navi-item"><a href="/image/popular">
                     <i class="far fa-compass"></i>
                 </a></li>
-                <li class="navi-item"><a href="/user/1">
+                <li class="navi-item">
+                    <a th:href="@{/user/{id}(id=${principal.id})}">
                     <i class="far fa-user"></i>
                 </a></li>
             </ul>
@@ -70,7 +71,14 @@
                 <th:block th:if="${userDto.pageOwnerState}">
                     <button class="cta" onclick="location.href='/image/upload'">사진등록</button>
                 </th:block>
-                <button class="cta" onclick="toggleSubscribe(this)">구독하기</button>
+                <th:block th:unless="${userDto.pageOwnerState}">
+                    <th:block  th:if="${userDto.subscribeState}">
+                        <button class="cta" th:onclick="|toggleSubscribe(${userDto.user.id}, this)|">구독취소</button>
+                    </th:block>
+                    <th:block th:unless="${userDto.subscribeState}">
+                        <button class="cta" th:onclick="|toggleSubscribe(${userDto.user.id}, this)|">구독하기</button>
+                    </th:block>
+                </th:block>
                 <th:block th:if="${userDto.pageOwnerState}">
                     <button class="modi" onclick="popup('.modal-info')">
                         <i class="fas fa-cog"></i>
@@ -82,7 +90,7 @@
                 <ul>
                     <li><a href=""> 게시물<span th:text="${userDto.imageCount}"></span>
                     </a></li>
-                    <li><a href="javascript:subscribeInfoModalOpen();"> 구독정보<span>2</span>
+                    <li><a href="javascript:subscribeInfoModalOpen();"> 구독정보<span th:text="${userDto.subscribeCount}"></span>
                     </a></li>
                 </ul>
             </div>
@@ -156,29 +164,17 @@
         </div>
 
         <div class="subscribe-list" id="subscribeModalList">
-
-            <div class="subscribe__item" id="subscribeModalItem-1">
-                <div class="subscribe__img">
-                    <img src="#" onerror="this.src='/images/sky.jpg'"/>
-                </div>
-                <div class="subscribe__text">
-                    <h2>love</h2>
-                </div>
-                <div class="subscribe__btn">
-                    <button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>
-                </div>
-            </div>
-
-
-            <div class="subscribe__item" id="subscribeModalItem-2">
-                <div class="subscribe__img">
-                    <img src="#" onerror="this.src='/images/sky.jpg'"/>
-                </div>
-                <div class="subscribe__text">
-                    <h2>ssar</h2>
-                </div>
-                <div class="subscribe__btn">
-                    <button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>
+            <div th:each="image : ${userDto.user.images}" class="img-box">
+                <div class="subscribe__item" id="subscribeModalItem-2">
+                    <div class="subscribe__img">
+                        <img src="#" onerror="this.src='/images/sky.jpg'"/>
+                    </div>
+                    <div class="subscribe__text">
+                        <h2>ssar</h2>
+                    </div>
+                    <div class="subscribe__btn">
+                        <button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>
+                    </div>
                 </div>
             </div>
         </div>
