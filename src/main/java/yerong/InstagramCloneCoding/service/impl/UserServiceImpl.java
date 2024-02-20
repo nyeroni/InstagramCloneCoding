@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.handler.exception.CustomException;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
+import yerong.InstagramCloneCoding.repository.subs.SubscribeRepository;
 import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.UserService;
+import yerong.InstagramCloneCoding.web.dto.user.UserProfileDto;
 import yerong.InstagramCloneCoding.web.dto.user.UserUpdateDto;
 
 @Service
@@ -17,6 +19,7 @@ import yerong.InstagramCloneCoding.web.dto.user.UserUpdateDto;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final SubscribeRepository subscribeRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     @Transactional
@@ -43,7 +46,19 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     @Transactional
-    public User profile(Long userId){
-        return   userRepository.findById(userId).orElseThrow(() ->  new CustomException("해당 프로필 페이지는 없는 페이지입니다."));
+    public UserProfileDto profile(Long pageUserId, Long pageOwnerId){
+
+        UserProfileDto dto = new UserProfileDto();
+        User pageUser = userRepository.findById(pageUserId).orElseThrow(() -> new CustomException("해당 프로필 페이지는 없는 페이지입니다."));
+
+        dto.setUser(pageUser);
+        dto.setImageCount(pageUser.getImages().size());
+        dto.setPageOwnerState(pageOwnerId.equals(pageUserId));
+        int state = subscribeRepository.mSubscribeState(pageOwnerId, pageUserId);
+        int count = subscribeRepository.mSubscribeCount(pageUserId);
+
+        dto.setSubscribeState(state==1);
+        dto.setSubscribeCount(count);
+        return dto;
     }
 }

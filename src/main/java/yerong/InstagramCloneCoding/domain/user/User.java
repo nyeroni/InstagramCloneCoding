@@ -1,5 +1,6 @@
 package yerong.InstagramCloneCoding.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
@@ -45,6 +46,7 @@ public class User extends BaseTimeEntity {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
     private List<Image> images = new ArrayList<>();
 
 

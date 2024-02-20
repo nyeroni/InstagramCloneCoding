@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import yerong.InstagramCloneCoding.config.auth.PrincipalDetails;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.service.UserService;
+import yerong.InstagramCloneCoding.web.dto.user.UserProfileDto;
 
 @Controller
 @Slf4j
@@ -20,10 +21,14 @@ import yerong.InstagramCloneCoding.service.UserService;
 public class UserController {
 
     private final UserService userService;
-    @GetMapping("/user/{id}")
-    public String profile(@PathVariable("id") Long id, Model model){
-        User user = userService.profile(id);
-        model.addAttribute("user", user);
+    @GetMapping("/user/{pageUserId}")
+    public String profile(
+            @PathVariable("pageUserId") Long pageUserId,
+                          Model model,
+            @AuthenticationPrincipal PrincipalDetails principalDetails){
+        UserProfileDto userDto = userService.profile(pageUserId, principalDetails.getUser().getId());
+
+        model.addAttribute("userDto", userDto);
         return "views/user/profile";
     }
     @GetMapping("/user/{id}/update")
