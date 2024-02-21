@@ -90,7 +90,10 @@
                 <ul>
                     <li><a href=""> 게시물<span th:text="${userDto.imageCount}"></span>
                     </a></li>
-                    <li><a href="javascript:subscribeInfoModalOpen();"> 구독정보<span th:text="${userDto.subscribeCount}"></span>
+                    <script th:inline="javascript">
+                        var userId = [[${userDto.user.id}]];
+                    </script>
+                    <li><a href="javascript:subscribeInfoModalOpen(userId);"> 구독정보<span th:text="${userDto.subscribeCount}"></span>
                     </a></li>
                 </ul>
             </div>
@@ -164,19 +167,7 @@
         </div>
 
         <div class="subscribe-list" id="subscribeModalList">
-            <div th:each="image : ${userDto.user.images}" class="img-box">
-                <div class="subscribe__item" id="subscribeModalItem-2">
-                    <div class="subscribe__img">
-                        <img src="#" onerror="this.src='/images/sky.jpg'"/>
-                    </div>
-                    <div class="subscribe__text">
-                        <h2>ssar</h2>
-                    </div>
-                    <div class="subscribe__btn">
-                        <button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 
