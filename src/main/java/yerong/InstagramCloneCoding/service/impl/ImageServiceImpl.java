@@ -15,12 +15,15 @@ import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.ImageService;
 import yerong.InstagramCloneCoding.web.dto.image.ImageDto;
 import yerong.InstagramCloneCoding.web.dto.image.ImageUploadDto;
+import yerong.InstagramCloneCoding.web.dto.image.PopularImageDto;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +80,22 @@ public class ImageServiceImpl implements ImageService {
 
         Image savedImage = imageRepository.save(image);
         user.addImage(savedImage);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<PopularImageDto> popularImage(){
+        List<Image> images = imageRepository.mPopular();
+        return images.stream().map(image -> {
+            return PopularImageDto.builder()
+                    .id(image.getId())
+                    .caption(image.getCaption())
+                    .postImageUrl(image.getPostImageUrl())
+                    .userId(image.getUser().getId())
+                    .username(image.getUser().getUsername())
+                    .profileImageUrl(image.getUser().getProfileImageUrl())
+                    .build();
+        }).collect(Collectors.toList());
+
     }
 }
