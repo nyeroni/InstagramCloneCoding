@@ -32,6 +32,7 @@ public class Likes extends BaseTimeEntity{
     private Image image;
 
     //User를 가져오면 안에 있는 image도 가져오게 돼서 image의 정보는 가져오지 않게 해야 함
+    @JsonIgnoreProperties("images")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
