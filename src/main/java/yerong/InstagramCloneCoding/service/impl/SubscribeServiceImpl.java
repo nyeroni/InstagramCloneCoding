@@ -1,10 +1,8 @@
 package yerong.InstagramCloneCoding.service.impl;
 
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -21,7 +19,7 @@ import yerong.InstagramCloneCoding.web.dto.subscribe.SubscribeDto;
 
 import java.util.List;
 
-import static yerong.InstagramCloneCoding.domain.subs.QSubscribe.subscribe;
+import static yerong.InstagramCloneCoding.domain.subscribe.QSubscribe.subscribe;
 import static yerong.InstagramCloneCoding.domain.user.QUser.user;
 
 @Service

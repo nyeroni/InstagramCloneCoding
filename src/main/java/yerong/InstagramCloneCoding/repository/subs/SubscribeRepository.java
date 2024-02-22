@@ -4,9 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import yerong.InstagramCloneCoding.domain.subs.Subscribe;
-
-import java.util.Optional;
+import yerong.InstagramCloneCoding.domain.subscribe.Subscribe;
 
 @Repository
 public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {

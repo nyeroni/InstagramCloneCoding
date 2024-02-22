@@ -1,4 +1,4 @@
-package yerong.InstagramCloneCoding.domain.subs;
+package yerong.InstagramCloneCoding.domain.subscribe;
 
 import jakarta.persistence.*;
 import lombok.*;

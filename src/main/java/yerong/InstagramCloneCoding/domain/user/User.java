@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
 import yerong.InstagramCloneCoding.domain.image.Image;
-import yerong.InstagramCloneCoding.domain.subs.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
