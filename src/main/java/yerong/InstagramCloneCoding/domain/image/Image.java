@@ -3,6 +3,7 @@ package yerong.InstagramCloneCoding.domain.image;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
 import yerong.InstagramCloneCoding.domain.user.User;
 
 @AllArgsConstructor
@@ -10,7 +11,7 @@ import yerong.InstagramCloneCoding.domain.user.User;
 @Getter
 @Builder
 @Entity
-public class Image {
+public class Image extends BaseTimeEntity {
 
 
     @Id
