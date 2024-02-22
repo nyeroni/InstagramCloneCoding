@@ -10,11 +10,14 @@ import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiExceptio
 import yerong.InstagramCloneCoding.repository.image.ImageRepository;
 import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.ImageService;
+import yerong.InstagramCloneCoding.web.dto.image.ImageDto;
 import yerong.InstagramCloneCoding.web.dto.image.ImageUploadDto;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,6 +27,27 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;
 
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ImageDto> imageStory(Long principalId){
+        List<Image> images = imageRepository.mStory(principalId);
+        List<ImageDto> imageDtos = new ArrayList<>();
+        for (Image image : images) {
+            //User user = userRepository.findById(image.getUser().getId()).orElseThrow(() -> new CustomValidationApiException("찾을 수 없는 Id 입니다."));
+            ImageDto dto = ImageDto.builder()
+                    .id(image.getId())
+                    .caption(image.getCaption())
+                    .postImageUrl(image.getPostImageUrl())
+                    .userId(image.getUser().getId())
+                    .username(image.getUser().getUsername())
+                    .profileImageUrl(image.getUser().getProfileImageUrl())
+                    .build();
+            imageDtos.add(dto);
+
+        }
+        return imageDtos;
+    }
     @Value("${file.path}")
     private String uploadFolder;
 

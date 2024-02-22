@@ -1,5 +1,6 @@
 package yerong.InstagramCloneCoding.domain.image;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.user.User;
@@ -20,6 +21,7 @@ public class Image {
     private String caption;
     private String postImageUrl;
 
+    @JsonIgnoreProperties({"images"}) //user에 있는 images는 무시
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
