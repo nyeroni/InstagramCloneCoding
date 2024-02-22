@@ -2,6 +2,9 @@ package yerong.InstagramCloneCoding.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yerong.InstagramCloneCoding.domain.image.Image;
@@ -30,23 +33,16 @@ public class ImageServiceImpl implements ImageService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<ImageDto> imageStory(Long principalId){
-        List<Image> images = imageRepository.mStory(principalId);
-        List<ImageDto> imageDtos = new ArrayList<>();
-        for (Image image : images) {
-            //User user = userRepository.findById(image.getUser().getId()).orElseThrow(() -> new CustomValidationApiException("찾을 수 없는 Id 입니다."));
-            ImageDto dto = ImageDto.builder()
-                    .id(image.getId())
-                    .caption(image.getCaption())
-                    .postImageUrl(image.getPostImageUrl())
-                    .userId(image.getUser().getId())
-                    .username(image.getUser().getUsername())
-                    .profileImageUrl(image.getUser().getProfileImageUrl())
-                    .build();
-            imageDtos.add(dto);
-
-        }
-        return imageDtos;
+    public Page<ImageDto> imageStory(Long principalId, Pageable pageable){
+        Page<Image> images = imageRepository.mStory(principalId, pageable);
+        return images.map(image -> ImageDto.builder()
+                        .id(image.getId())
+                        .caption(image.getCaption())
+                        .postImageUrl(image.getPostImageUrl())
+                        .userId(image.getUser().getId())
+                        .username(image.getUser().getUsername())
+                        .profileImageUrl(image.getUser().getProfileImageUrl())
+                        .build());
     }
     @Value("${file.path}")
     private String uploadFolder;
