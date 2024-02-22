@@ -24,8 +24,8 @@
                     <!--로고end-->
 
                     <!--회원가입 인풋-->
-                    <form class="login__input" action="/auth/signup" method="post">
-                        <input type="text" name="username" placeholder="유저네임" required="required" />
+                    <form id = "signupForm" class="login__input" action="/auth/signup" method="post">
+                        <input type="text" id = "username" name="username" placeholder="유저네임" required="required" />
                         <input type="password" name="password" placeholder="패스워드" required="required" />
                         <input type="email" name="email" placeholder="이메일" required="required" />
                         <input type="text" name="name" placeholder="이름" required="required" />
@@ -47,5 +47,31 @@
     </main>
 </div>
 </body>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
+            var usernameInput = document.getElementById("username");
+            if (usernameInput) {
+                var username = usernameInput.value;
+                fetch("/auth/checkUsernameAvailability?username=" + username)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(username)
+                        console.log(data)
+                        if (data.available) {
+                            document.getElementById("signupForm").submit();
+                        } else {
+                            alert("중복된 사용자 이름입니다. 다른 이름을 선택해주세요.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('오류:', error);
+                    });
+            } else {
+                console.error("username input이 없습니다.");
+            }
+        });
+    });
+</script>
 </html>
