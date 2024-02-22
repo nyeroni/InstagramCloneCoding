@@ -18,7 +18,7 @@ import yerong.InstagramCloneCoding.domain.user.User;
                 )
         }
 )
-public class Subscribe  {
+public class Subscribe extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
