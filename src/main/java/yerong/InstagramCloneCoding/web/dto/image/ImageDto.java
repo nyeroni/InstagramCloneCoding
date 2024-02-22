@@ -17,4 +17,6 @@ public class ImageDto {
     private Long userId;
     private String username;
     private String profileImageUrl;
+    private boolean likeState;
+    private int likeCount;
 }

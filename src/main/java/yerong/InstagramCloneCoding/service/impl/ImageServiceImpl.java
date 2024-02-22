@@ -3,11 +3,11 @@ package yerong.InstagramCloneCoding.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yerong.InstagramCloneCoding.domain.image.Image;
+import yerong.InstagramCloneCoding.domain.likes.Likes;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
 import yerong.InstagramCloneCoding.repository.image.ImageRepository;
@@ -19,9 +19,8 @@ import yerong.InstagramCloneCoding.web.dto.image.ImageUploadDto;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
@@ -35,14 +34,26 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Page<ImageDto> imageStory(Long principalId, Pageable pageable){
         Page<Image> images = imageRepository.mStory(principalId, pageable);
-        return images.map(image -> ImageDto.builder()
-                        .id(image.getId())
-                        .caption(image.getCaption())
-                        .postImageUrl(image.getPostImageUrl())
-                        .userId(image.getUser().getId())
-                        .username(image.getUser().getUsername())
-                        .profileImageUrl(image.getUser().getProfileImageUrl())
-                        .build());
+        return images.map(image -> {
+            boolean likeState = false;
+            for(Likes like : image.getLikes()) {
+                if(like.getUser().getId() == principalId) {
+                    likeState = true;
+                    break;
+                }
+            }
+
+            return ImageDto.builder()
+                    .id(image.getId())
+                    .caption(image.getCaption())
+                    .postImageUrl(image.getPostImageUrl())
+                    .userId(image.getUser().getId())
+                    .username(image.getUser().getUsername())
+                    .profileImageUrl(image.getUser().getProfileImageUrl())
+                    .likeState(likeState)
+                    .likeCount(image.getLikes().size())
+                    .build();
+        });
     }
     @Value("${file.path}")
     private String uploadFolder;

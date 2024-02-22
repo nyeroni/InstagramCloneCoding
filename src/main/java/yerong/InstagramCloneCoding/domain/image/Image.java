@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
+import yerong.InstagramCloneCoding.domain.likes.Likes;
 import yerong.InstagramCloneCoding.domain.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,6 +32,9 @@ public class Image extends BaseTimeEntity {
     private User user;
 
     //좋아요
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Likes> likes = new ArrayList<>();
 
     //댓글
 

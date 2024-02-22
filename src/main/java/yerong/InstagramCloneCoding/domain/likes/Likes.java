@@ -20,7 +20,7 @@ import yerong.InstagramCloneCoding.domain.user.User;
                 )
         }
 )
-public class Likes {
+public class Likes extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
