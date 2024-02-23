@@ -59,6 +59,9 @@ public class UserServiceImpl implements UserService {
 
         dto.setSubscribeState(state==1);
         dto.setSubscribeCount(count);
+        pageUser.getImages().forEach((image)->{
+            image.setLikeCount(image.getLikes().size());
+        });
         return dto;
     }
 

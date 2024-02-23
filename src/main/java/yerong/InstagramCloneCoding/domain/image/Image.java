@@ -36,6 +36,13 @@ public class Image extends BaseTimeEntity {
     @OneToMany(mappedBy = "image")
     private List<Likes> likes = new ArrayList<>();
 
+    @Transient
+    private int likeCount;
+
+    public void setLikeCount(int count) {
+        this.likeCount = count;
+    }
+
     //댓글
 
 }

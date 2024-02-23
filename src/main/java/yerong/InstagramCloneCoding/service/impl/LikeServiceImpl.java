@@ -22,6 +22,7 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public void like(Long imageId, Long principalId){
         likesRepository.mLikes(imageId, principalId);
+
     }
     @Transactional
     @Override
