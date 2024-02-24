@@ -23,6 +23,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- principalId 담아두기 -->
+<input type="hidden" id="principalId" th:value="${principal.id}" />
 <header class="header">
     <div class="container">
         <a href="/" class="logo">
@@ -53,12 +55,12 @@
         <div class="profile-left">
             <div class="profile-img-wrap story-border"
                  onclick="popup('.modal-image')">
-                <form id="userProfileImageForm">
+                <form id="userProfileImageForm" >
                     <input type="file" name="profileImageFile" style="display: none;"
                            id="userProfileImageInput" />
                 </form>
 
-                <img class="profile-image" src="#"
+                <img class="profile-image"  th:src="@{'/upload/' + ${userDto.user.profileImageUrl}}"
                      onerror="this.src='/images/sky.jpg'" id="userProfileImage" />
             </div>
         </div>
@@ -145,12 +147,15 @@
 </div>
 
 <!--로그아웃, 회원정보변경 모달 end-->
-
+<script th:inline="javascript">
+    var principalId = [[${principal.id}]];
+</script>
 <!--프로필사진 바꾸기 모달-->
 <div class="modal-image" onclick="modalImage()">
     <div class="modal">
         <p>프로필 사진 바꾸기</p>
-        <button onclick="profileImageUpload()">사진 업로드</button>
+
+        <button onclick="profileImageUpload(userId, principalId)">사진 업로드</button>
         <button onclick="closePopup('.modal-image')">취소</button>
     </div>
 </div>
