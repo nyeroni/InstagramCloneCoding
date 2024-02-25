@@ -2,9 +2,11 @@ package yerong.InstagramCloneCoding.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.handler.exception.CustomException;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
@@ -13,6 +15,11 @@ import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.UserService;
 import yerong.InstagramCloneCoding.web.dto.user.UserProfileDto;
 import yerong.InstagramCloneCoding.web.dto.user.UserUpdateDto;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -64,5 +71,28 @@ public class UserServiceImpl implements UserService {
         });
         return dto;
     }
+
+    @Value("${file.path}")
+    private String uploadFolder;
+
+    @Override
+    @Transactional
+    public User changeProfileImage(Long principalId, MultipartFile profileImageFile){
+        UUID uuid = UUID.randomUUID();
+        String imageFileName = uuid + "_" + profileImageFile.getOriginalFilename();
+        Path imageFilePath = Paths.get(uploadFolder+imageFileName);
+        try{
+            Files.write(imageFilePath, profileImageFile.getBytes());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        User user = userRepository.findById(principalId).orElseThrow(() -> new CustomValidationApiException("찾을 수 없는 Id 입니다."));
+        user.setProfileImageUrl(imageFileName);
+
+        return user;
+    }
+
 
 }

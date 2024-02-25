@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import yerong.InstagramCloneCoding.config.auth.PrincipalDetails;
 import yerong.InstagramCloneCoding.domain.user.User;
 import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiException;
@@ -64,5 +65,16 @@ public class UserApiController {
             principalDetails.setUser(userEntity);
             return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "회원 수정 완료", userEntity), HttpStatus.OK);
         }
+    }
+
+    @PutMapping("/api/user/{principalId}/profileImageUrl")
+    public ResponseEntity<CMRespDto<?>> changeProfileImage(
+            @PathVariable Long principalId,
+            MultipartFile profileImageFile,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ){
+        User user = userService.changeProfileImage(principalId, profileImageFile);
+        principalDetails.setUser(user);
+        return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "프로필 사진 변경 성공", null), HttpStatus.OK);
     }
 }

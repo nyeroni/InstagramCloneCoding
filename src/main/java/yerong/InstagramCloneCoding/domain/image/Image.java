@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import yerong.InstagramCloneCoding.domain.BaseTimeEntity;
+import yerong.InstagramCloneCoding.domain.comment.Comment;
 import yerong.InstagramCloneCoding.domain.likes.Likes;
 import yerong.InstagramCloneCoding.domain.user.User;
 
@@ -39,10 +40,14 @@ public class Image extends BaseTimeEntity {
     @Transient
     private int likeCount;
 
+    @OrderBy("id DESC ")
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Comment> commentList;
+
     public void setLikeCount(int count) {
         this.likeCount = count;
     }
 
-    //댓글
 
 }

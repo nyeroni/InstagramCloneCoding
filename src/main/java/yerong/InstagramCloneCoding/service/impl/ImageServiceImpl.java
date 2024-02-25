@@ -13,6 +13,7 @@ import yerong.InstagramCloneCoding.handler.exception.CustomValidationApiExceptio
 import yerong.InstagramCloneCoding.repository.image.ImageRepository;
 import yerong.InstagramCloneCoding.repository.user.UserRepository;
 import yerong.InstagramCloneCoding.service.ImageService;
+import yerong.InstagramCloneCoding.web.dto.comment.CommentResDto;
 import yerong.InstagramCloneCoding.web.dto.image.ImageDto;
 import yerong.InstagramCloneCoding.web.dto.image.ImageUploadDto;
 import yerong.InstagramCloneCoding.web.dto.image.PopularImageDto;
@@ -45,7 +46,14 @@ public class ImageServiceImpl implements ImageService {
                     break;
                 }
             }
-
+            List<CommentResDto> commentResDtoList = image.getCommentList().stream().map(comment -> {
+                return CommentResDto.builder()
+                        .id(comment.getId())
+                        .content(comment.getContent())
+                        .username(comment.getUser().getUsername())
+                        .userId(comment.getUser().getId())
+                        .build();
+            }).collect(Collectors.toList());
             return ImageDto.builder()
                     .id(image.getId())
                     .caption(image.getCaption())
@@ -55,6 +63,7 @@ public class ImageServiceImpl implements ImageService {
                     .profileImageUrl(image.getUser().getProfileImageUrl())
                     .likeState(likeState)
                     .likeCount(image.getLikes().size())
+                    .commentList(commentResDtoList)
                     .build();
         });
     }
