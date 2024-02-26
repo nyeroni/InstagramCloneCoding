@@ -1,16 +1,23 @@
 package yerong.InstagramCloneCoding.web.api;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import yerong.InstagramCloneCoding.config.auth.PrincipalDetails;
+import yerong.InstagramCloneCoding.handler.exception.CustomValidationException;
 import yerong.InstagramCloneCoding.service.CommentService;
 import yerong.InstagramCloneCoding.web.dto.CMRespDto;
 import yerong.InstagramCloneCoding.web.dto.comment.CommentReqDto;
 import yerong.InstagramCloneCoding.web.dto.comment.CommentResDto;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,12 +28,23 @@ public class CommentApiController {
 
     @PostMapping("/api/comment")
     public ResponseEntity<CMRespDto<?>> commentWrite(
-            @RequestBody CommentReqDto commentDto,
+            @Valid @RequestBody CommentReqDto commentDto,
+            BindingResult bindingResult,
             @AuthenticationPrincipal PrincipalDetails principalDetails){
-        CommentResDto commentResDto = commentService.commentWrite(commentDto, principalDetails.getUser().getId());
+        if(bindingResult.hasErrors()){
+            Map<String, String> errorMap = new HashMap<>();
 
-        return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "댓글 작성 성공", commentResDto), HttpStatus.CREATED);
+            for(FieldError error : bindingResult.getFieldErrors()){
+                errorMap.put(error.getField(), error.getDefaultMessage());
+                log.info(error.getDefaultMessage());
+            }
+            throw new CustomValidationException("유효성 검사 실패", errorMap);
+        }
+        else {
+            CommentResDto commentResDto = commentService.commentWrite(commentDto, principalDetails.getUser().getId());
+            return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "댓글 작성 성공", commentResDto), HttpStatus.CREATED);
 
+        }
     }
     @DeleteMapping("/api/comment/{id}")
     public ResponseEntity<CMRespDto<?>> commentDelete(
