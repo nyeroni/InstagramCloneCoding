@@ -175,7 +175,7 @@ function addComment(imageId) {
 		`;
 		commentList.prepend(content);
 	}).fail(error=>{
-		console.log("오류", error)
+		console.log("오류", error.responseJSON.message);
 	})
 
 	commentInput.val(""); //인풋 필드를 비워줌

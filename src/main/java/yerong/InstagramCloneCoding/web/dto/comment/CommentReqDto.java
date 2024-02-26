@@ -1,6 +1,7 @@
 package yerong.InstagramCloneCoding.web.dto.comment;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @Getter
