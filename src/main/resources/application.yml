@@ -12,7 +12,8 @@ spring:
     url: jdbc:mariadb://localhost:3306/instagram?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
     username: yerong
     password: 12345678
-
+  profiles:
+    include: oauth
   jpa:
     open-in-view: true
     hibernate:

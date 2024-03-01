@@ -1,0 +1,10 @@
+security:
+  oauth2:
+    client:
+      registration:
+        facebook:
+          clientId:
+          client-secret:
+          scope:
+            - email
+            - public_profile
