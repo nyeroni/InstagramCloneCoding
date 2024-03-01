@@ -31,26 +31,14 @@ public class CommentApiController {
             @Valid @RequestBody CommentReqDto commentDto,
             BindingResult bindingResult,
             @AuthenticationPrincipal PrincipalDetails principalDetails){
-        if(bindingResult.hasErrors()){
-            Map<String, String> errorMap = new HashMap<>();
 
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-                log.info(error.getDefaultMessage());
-            }
-            throw new CustomValidationException("유효성 검사 실패", errorMap);
-        }
-        else {
-            CommentResDto commentResDto = commentService.commentWrite(commentDto, principalDetails.getUser().getId());
-            return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "댓글 작성 성공", commentResDto), HttpStatus.CREATED);
-
-        }
+        CommentResDto commentResDto = commentService.commentWrite(commentDto, principalDetails.getUser().getId());
+        return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "댓글 작성 성공", commentResDto), HttpStatus.CREATED);
     }
     @DeleteMapping("/api/comment/{id}")
     public ResponseEntity<CMRespDto<?>> commentDelete(
             @PathVariable Long id
     ){
-        log.info("=====id : " + id + "-======");
         commentService.commentDelete(id);
         return new ResponseEntity<CMRespDto<?>>(new CMRespDto<>(1, "댓글 삭제 성공", null), HttpStatus.OK);
 
