@@ -19,11 +19,8 @@ public class AuthApiController {
     @GetMapping("/auth/checkUsernameAvailability")
     public ResponseEntity<UsernameAvailabilityResponseDto> checkUsernameAvailability(@RequestParam String username) {
         boolean available = authService.isUsernameAvailable(username);
-        log.info("username==" + username);
-        log.info("available == " + available);
 
         UsernameAvailabilityResponseDto response = new UsernameAvailabilityResponseDto(available);
-        log.info("respone == " + response.isAvailable());
         return ResponseEntity.ok(response);
     }
 }
