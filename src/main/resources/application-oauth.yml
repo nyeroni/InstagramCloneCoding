@@ -3,8 +3,8 @@ security:
     client:
       registration:
         facebook:
-          clientId:
-          client-secret:
+          clientId: 782822670383867
+          client-secret: c394fdc67d480d433c66d5d462803e37
           scope:
             - email
             - public_profile
