@@ -1,5 +1,6 @@
 package yerong.InstagramCloneCoding.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,11 +9,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import yerong.InstagramCloneCoding.config.oauth.OAuth2DetailsService;
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig{
 
+    private final OAuth2DetailsService oAuth2DetailsService;
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
@@ -39,6 +43,9 @@ public class SecurityConfig{
                         formConfig.loginPage("/auth/signin") //GET
                                 .loginProcessingUrl("/auth/signin") //POST
                                 .defaultSuccessUrl("/"))
+                .oauth2Login(oAuth -> oAuth
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
+                                .userService(oAuth2DetailsService)))
                 .build();
     }
 }
