@@ -1,4 +1,5 @@
-/application-oauth.yml
+## OAuth ###
+/src/main/resources/application-oauth.yml
 
 HELP.md
 .gradle
